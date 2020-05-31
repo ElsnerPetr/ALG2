@@ -1,0 +1,85 @@
+"Kolik je 1+1 ?"
+2
+1
+"Kolik je 5*5 ?"
+25
+2
+"Kolik je 6/3 ?"
+2
+2
+"Kolik je 15*3 ?"
+45
+3
+"Kolik je 9-3 ?"
+6
+2
+@
+1
+"Kolik je 3+11 ?"
+14
+1
+"Kolik je 11*5 ?"
+55
+3
+"Kolik je 9/3 ?"
+3
+2
+"Kolik je 5*3 ?"
+15
+2
+"Kolik je 18-10 ?"
+8
+2
+@
+2
+"Kolik je 1+8 ?"
+9
+1
+"Kolik je 9*2 ?"
+18
+2
+"Kolik je 20/4 ?"
+5
+2
+"Kolik je 23*3 ?"
+69
+3
+"Kolik je 25-12 ?"
+13
+2
+@
+3
+"Kolik je 5+7 ?"
+12
+1
+"Kolik je 6*3 ?"
+18
+2
+"Kolik je 30/3 ?"
+10
+2
+"Kolik je 63*0 ?"
+0
+3
+"Kolik je 22-16 ?"
+6
+2
+@
+4
+"Kolik je 5+3 ?"
+8
+1
+"Kolik je 8*5 ?"
+40
+2
+"Kolik je 8/2 ?"
+4
+2
+"Kolik je 10*3 ?"
+30
+3
+"Kolik je 15-9 ?"
+6
+2
+@
+5
