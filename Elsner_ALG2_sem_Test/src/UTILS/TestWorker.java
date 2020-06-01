@@ -146,9 +146,7 @@ public class TestWorker {
         File attemptFile = new File(Writer.dataDirectory, attemptsFilepath);
         attempts.clear();
         try (DataInputStream dis = new DataInputStream(new FileInputStream(attemptFile))) {
-            boolean isEnd = false;
-
-            while (!isEnd) {
+            while (dis.available() > 0) {
                 try {
 
                     String firstName = dis.readUTF();
@@ -165,10 +163,9 @@ public class TestWorker {
                         attempts.add(a);
                     } catch (NoSuchElementException e) {
                         throw e;
-                        
+
                     }
                 } catch (EOFException e) {
-                    isEnd = true;
                     throw e;
                 }
             }

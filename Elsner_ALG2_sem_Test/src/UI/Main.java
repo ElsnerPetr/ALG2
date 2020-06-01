@@ -12,7 +12,7 @@ import kuusisto.tinysound.TinySound;
 /**
  *
  * @author Petr Elsner
- * @version v1.3 1.6.2020
+ * @version v1.6 1.6.2020
  */
 public class Main {
 
