@@ -25,8 +25,7 @@ public class Test {
 
     @Override
     public String toString() {
-        System.out.println("Test: " + number);
-        return "Otázky: " + questions;
+        return String.format("Test: %2d\nOtázky: " + questions, number, questions);
     }
 
 }

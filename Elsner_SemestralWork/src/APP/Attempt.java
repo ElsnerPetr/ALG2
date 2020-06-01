@@ -1,7 +1,6 @@
 package APP;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -18,7 +17,7 @@ public class Attempt {
     private int points = 0;
     private int rank;
     private final LocalDate birthdate;
-    private Test test;
+    private final Test test;
 
     //konstruktor:
     public Attempt(String firstName, String lastName, LocalDate birthdate, Test test) {
@@ -65,36 +64,6 @@ public class Attempt {
     }
 
     /**
-     * Metoda porovnávající příjmení.
-     */
-    public static Comparator<Attempt> LastNameComparator = new Comparator<Attempt>() {
-
-        public int compare(Attempt a1, Attempt a2) {
-
-            String StudentName1 = a1.getLastName().toUpperCase();
-            String StudentName2 = a2.getLastName().toUpperCase();
-
-            return StudentName1.compareTo(StudentName2);
-
-        }
-    };
-
-    /**
-     * Metoda porovnávající známky.
-     */
-    public static Comparator<Attempt> RankComparator = new Comparator<Attempt>() {
-
-        public int compare(Attempt a1, Attempt a2) {
-
-            int rank1 = a1.getRank();
-            int rank2 = a2.getRank();
-
-            return rank1 - rank2;
-
-        }
-    };
-
-    /**
      * Metoda, která spustí test.
      *
      * @return počet zíkaných bodů
@@ -114,7 +83,7 @@ public class Attempt {
     /**
      * Metoda, přepočítající získané body na známku.
      * 
-     * @param počet bodů
+     * @param points počet bodů
      * @return známka
      */
     public int calculateRank(int points) {
@@ -136,7 +105,7 @@ public class Attempt {
     /**
      * Metoda popisující výsledek pokusu.
      * 
-     * @param známka
+     * @param rank známka
      * @return popisující věta
      */
     public String getFormatedAttempt(int rank) {
@@ -151,7 +120,7 @@ public class Attempt {
         } else if (rank == 5) {
             text = "    Bohužel se máš ještě co učit, nesplněno. :(";
         } else {
-            System.out.println(" Neplatná známka.");
+            text = "    Neplatná známka.";
         }
         sb.append(text);
         return sb.toString();

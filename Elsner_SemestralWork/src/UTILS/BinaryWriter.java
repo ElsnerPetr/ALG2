@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -24,20 +26,21 @@ public class BinaryWriter extends Writer {
     public void saveResults(String resultFilepath, List<Attempt> attempts) throws IOException {
         File resultFile = new File(dataDirectory, resultFilepath);
 
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(resultFilepath,true))) {
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(resultFile, true))) {
 
             for (Attempt attempt : attempts) {
 
                 dos.writeUTF(attempt.getFirstName());
-
-                int nChars = attempt.getLastName().length();
-                dos.writeInt(nChars);
-                for (int i = 0; i < nChars; i++) {
-                    dos.writeChar(attempt.getLastName().charAt(i));
-                }
-
-                dos.writeChars(attempt.getBirthdate().toString());
-
+                dos.writeUTF(attempt.getLastName());
+                dos.writeInt(attempt.getPoints());
+                dos.writeInt(attempt.getRank());
+                
+                LocalDate localDate = attempt.getBirthdate();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String formattedString = localDate.format(formatter);
+                System.out.println(formattedString);
+                
+                dos.writeUTF(formattedString);
             }
         }
     }

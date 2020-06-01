@@ -21,11 +21,6 @@ public class Question {
 
     }
 
-    //setter
-    public void setStudentAnswear(String studentAnswear) {
-        this.studentAnswear = studentAnswear;
-    }
-
     //gettery
     public int getPoints() {
         return points;
@@ -37,10 +32,6 @@ public class Question {
 
     public String getRightAnswear() {
         return rightAnswear;
-    }
-
-    public String getStudentAnswear() {
-        return studentAnswear;
     }
 
     @Override

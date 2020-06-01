@@ -1,10 +1,8 @@
 package UTILS;
 
 import APP.Attempt;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -28,7 +26,7 @@ public class TextWriter extends Writer {
     public void saveResults(String resultFilepath, List<Attempt> attempts) throws IOException {
         File resultFile = new File(dataDirectory, resultFilepath);
 
-        OutputStream os = new FileOutputStream(resultFilepath,true);
+        OutputStream os = new FileOutputStream(resultFile, true);
 
         try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(os, "UTF-8"))) {
 

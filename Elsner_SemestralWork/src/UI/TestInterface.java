@@ -1,6 +1,6 @@
 package UI;
 
-import APP.TestWorker;
+import UTILS.TestWorker;
 
 /**
  * Interface

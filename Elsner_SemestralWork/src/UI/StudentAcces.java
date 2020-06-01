@@ -6,13 +6,15 @@ package UI;
 import APP.Attempt;
 import APP.Question;
 import APP.Test;
-import static UI.Main.sc;
-import APP.TestWorker;
+import UTILS.TestWorker;
+import UTILS.MusicNotFoundException;
+import UTILS.MusicWorker;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,11 +26,22 @@ import kuusisto.tinysound.TinySound;
  */
 public class StudentAcces implements TestInterface {
 
+    private Scanner sc = new Scanner(System.in);
     private Attempt attempt;
-    ArrayList<Test> tests;
-    ArrayList<Question> questions = new ArrayList<>();
-
-    int points;
+    private ArrayList<Test> tests;
+    private ArrayList<Question> questions = new ArrayList<>();
+    private MusicWorker m = new MusicWorker();
+    private String song = "";
+    private String choice;
+    private int rank;
+    private LocalDate birthdate;
+    private Random random = new Random();
+    private int points;
+    private Pattern p;
+    private Matcher mf;
+    private Matcher ml;
+    private String firstName;
+    private String lastName;
 
     /**
      * UI metoda pro žáky.
@@ -37,19 +50,18 @@ public class StudentAcces implements TestInterface {
      */
     @Override
     public void UI(TestWorker t) {
-        System.out.println("Zadej svoje jméno a příjmení:");
 
-        Pattern p = Pattern.compile("[A-ZŘÚÍÓÁĎŽČŇÉŠ]{1}[a-zěščřžýáíéúůü]+");
-        String firstName = sc.next();
-        String lastName = sc.next();
-        Matcher mf = p.matcher(firstName);
-        Matcher ml = p.matcher(lastName);
+        System.out.println("Zadej svoje jméno a příjmení:");
+        p = Pattern.compile("[A-ZŘÚÍÓÁĎŽČŇÉŠ]{1}+[a-zěščřžýáíéúůü]+");
+        firstName = sc.next();
+        lastName = sc.next();
+        mf = p.matcher(firstName);
+        ml = p.matcher(lastName);
         if (!mf.find() || !ml.find()) {
             System.out.println("Jméno nebo příjmení obsahuje nepodporované znaky.");
             return;
         }
 
-        LocalDate birthdate;
         System.out.println("Zadej datum svého narození (postupně: rok měsíc den):");
         try {
             birthdate = LocalDate.of(sc.nextInt(), sc.nextInt(), sc.nextInt());
@@ -64,9 +76,10 @@ public class StudentAcces implements TestInterface {
         } catch (IOException ex) {
             System.out.println("Soubor s testy nebyl nalezen.");
             return;
+        } catch (NumberFormatException e) {
+            System.out.println("Soubor s testy je poškozen.");
+            return;
         }
-
-        Random random = new Random();
 
         try {
             attempt = new Attempt(firstName, lastName, birthdate, tests.get(random.nextInt(tests.size() - 1)));
@@ -81,13 +94,12 @@ public class StudentAcces implements TestInterface {
 
         points = attempt.makeAttempt();
 
-        int rank = attempt.calculateRank(points);
+        rank = attempt.calculateRank(points);
         attempt.setRank(rank);
         System.out.println(attempt.getFormatedAttempt(rank));
         System.out.println("Pokračuj zadáním čehokoliv.");
 
         TinySound.init();
-        String song = "";
         int time = 0;
         if (points > 8) {
             song = "Music.wav";
@@ -100,11 +112,47 @@ public class StudentAcces implements TestInterface {
             song = "Sad.wav";
             time = 11;
         }
-        t.initSong(song);
-        t.playSong(time);
+        try {
+            m.initSong(song);
+        } catch (MusicNotFoundException me) {
+            System.out.println(me + song);
+        }
+
+        m.playSong(time);
         TinySound.shutdown();
 
         t.saveNewAttempt(attempt);
+        System.out.println("Vyberte jakým způsobem chcete uložit data:");
+        System.out.println("1) Soubor .txt");
+        System.out.println("2) Soubor .dat");
+        System.out.println("3) Soubor .txt + .dat");
+        choice = sc.nextLine();
+
+        try {
+            OUTER:
+            while (true) {
+                choice = sc.nextLine();
+                switch (choice) {
+                    case "1":
+                        t.saveResults("Attempts.txt");
+                        break OUTER;
+                    case "2":
+                        t.saveResults("Attempts.dat");
+                        break OUTER;
+                    case "3":
+                        t.saveResults("Attempts.txt");
+                        t.saveResults("Attempts.dat");
+                        break OUTER;
+                    default:
+                        System.out.println("Nevalidní volba.");
+                        break;
+                }
+            }
+
+        } catch (IOException e) {
+
+        }
+        t.clearNewAttempts();
     }
 
 }
