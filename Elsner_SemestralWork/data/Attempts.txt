@@ -1,8 +1,0 @@
-Petr           Elsner              10   1    1997-06-10     
-Pedro          Elsnero             5    3    1980-10-02     
-Pierre         Elsnier             0    5    1820-03-11     
-Alfréd         Šedivý              5    3    1500-03-03     
-Lenka          Divooká             7    2    1990-10-02     
-Lucka          Zajícová            10   1    1999-10-10     
-Heralt         Rukostrč            3    4    1450-03-06     
-Lol            Lol                 3    4    0001-01-01     
